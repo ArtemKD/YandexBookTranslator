@@ -4,9 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YandexBookTranslator"
+        xmlns:Controls="clr-namespace:YandexBookTranslator.Views.Controls"
+        xmlns:ViewModels="clr-namespace:YandexBookTranslator.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Height="720" Width="1280"
+        MinHeight="360" MinWidth="640">
+    <Window.DataContext>
+        <ViewModels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type ViewModels:InformationViewModel}">
+            <Controls:InformationControlView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type ViewModels:TranslateViewModel}">
+            <Controls:TranslateControlView/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="100"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <Button Grid.Column="0" Content="info" Command="{Binding OpenInfoCommand}"/>
+            <Button Grid.Column="0" Content="translate" Command="{Binding OpenTransalteCommand}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <ContentControl x:Name="Pages" Content="{Binding SelectedViewModel}"/>
+        </StackPanel>
     </Grid>
 </Window>
