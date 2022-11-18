@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using YandexBookTranslator.Infrastructure.Commands;
 using YandexBookTranslator.ViewModels.Base;
 
@@ -11,8 +6,17 @@ namespace YandexBookTranslator.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public readonly TranslationHistoryViewModel HistoryVM;
-        public readonly TranslationControlViewModel TranslateVM;
+        private TranslationHistoryViewModel _HistoryVM;
+        public TranslationHistoryViewModel HistoryVM
+        {
+            get => _HistoryVM;
+        }
+
+        private TranslationControlViewModel _TranslateVM;
+        public TranslationControlViewModel TranslateVM
+        {
+            get => _TranslateVM;
+        }
 
         #region SelectViewModel
         private object _SelectedViewModel;
@@ -26,7 +30,10 @@ namespace YandexBookTranslator.ViewModels
         #region Commands
         #region OpenHistoryCommand
         public ICommand OpenHistoryCommand { get; }
-        private bool CanOpenHistoryCommandExecute(object p) => true;
+        private bool CanOpenHistoryCommandExecute(object p)
+        {
+            return !SelectedViewModel.Equals(HistoryVM);
+        }
         private void OnOpenHistoryCommandExecuted(object p)
         {
             SelectedViewModel = HistoryVM;
@@ -35,7 +42,7 @@ namespace YandexBookTranslator.ViewModels
 
         #region OpenTransalteCommand
         public ICommand OpenTransalteCommand { get; }
-        private bool CanOpenTransalteCommandExecute(object p) => true;
+        private bool CanOpenTransalteCommandExecute(object p) => !SelectedViewModel.Equals(TranslateVM);
         private void OnOpenTransalteCommandExecuted(object p)
         {
             SelectedViewModel = TranslateVM;
@@ -49,8 +56,10 @@ namespace YandexBookTranslator.ViewModels
             OpenHistoryCommand = new LambdaCommand(OnOpenHistoryCommandExecuted, CanOpenHistoryCommandExecute);
             OpenTransalteCommand = new LambdaCommand(OnOpenTransalteCommandExecuted, CanOpenTransalteCommandExecute);
 
-            HistoryVM = new TranslationHistoryViewModel();
-            TranslateVM = new TranslationControlViewModel();
+            _HistoryVM = new TranslationHistoryViewModel();
+            _TranslateVM = new TranslationControlViewModel();
+
+            SelectedViewModel = TranslateVM;
         }
     }
 }
