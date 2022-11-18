@@ -37,7 +37,14 @@
             <ContentControl Grid.Row="0" Content="{Binding SelectedViewModel}"/>
         </Grid>
         <StatusBar Grid.Row="2">
-            <StatusBarItem Content="Прогресс">
+            <StatusBarItem Content="Прогресс"/>
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Исходный язык:"/>
+                    <Label Content="{Binding Path=TranslateVM.SelectedSourceLang}"/>
+                    <Label Content="Конечный язык:"/>
+                    <Label Content="{Binding Path=TranslateVM.SelectedTargetLang}"/>
+                </StackPanel>
             </StatusBarItem>
         </StatusBar>
     </Grid>
