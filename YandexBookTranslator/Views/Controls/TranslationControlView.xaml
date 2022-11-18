@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:YandexBookTranslator.Views.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Margin="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
@@ -29,7 +29,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="Файлы для перевода"/>
-                <TextBox Grid.Column="1" Text="Файлы" IsEnabled="False"/>
+                <TextBox Grid.Column="1" Text="{Binding FilesListString}" IsEnabled="False"/>
             </Grid>
             <!--Директория перевода-->
             <Grid Grid.Row="1">
@@ -37,8 +37,8 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Файлы для перевода"/>
-                <TextBox Grid.Column="1" Text="{Binding FilesListString}" IsEnabled="False"/>
+                <Button Grid.Column="0" Content="Директория сохранения"/>
+                <TextBox Grid.Column="1" Text="{Binding SaveDir }" IsEnabled="False"/>
             </Grid>
 
             <!--Выбор языка-->
@@ -51,10 +51,10 @@
                 </Grid.ColumnDefinitions>
                 
                 <Label Grid.Column="0" Content="Исходный язык"/>
-                <ComboBox Grid.Column="1"/>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding NameOfLangs}" SelectedItem="Русский"/>
                 
                 <Label Grid.Column="2" Content="Конечный язык"/>
-                <ComboBox Grid.Column="3"/>
+                <ComboBox Grid.Column="3" ItemsSource="{Binding NameOfLangs}" SelectedItem="Английский"/>
             </Grid>
         </Grid>
     </Grid>
