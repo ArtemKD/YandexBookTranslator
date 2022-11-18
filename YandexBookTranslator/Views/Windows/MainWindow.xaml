@@ -15,24 +15,39 @@
         <ViewModels:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate DataType="{x:Type ViewModels:InformationViewModel}">
-            <Controls:InformationControlView/>
+        <DataTemplate DataType="{x:Type ViewModels:TranslationControlViewModel}">
+            <Controls:TranslationControlView/>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type ViewModels:TranslateViewModel}">
-            <Controls:TranslateControlView/>
+        <DataTemplate DataType="{x:Type ViewModels:TranslationHistoryViewModel}">
+            <Controls:TranslationHistoryView/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" MinWidth="100"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel>
-            <Button Grid.Column="0" Content="info" Command="{Binding OpenInfoCommand}"/>
-            <Button Grid.Column="0" Content="translate" Command="{Binding OpenTransalteCommand}"/>
-        </StackPanel>
-        <StackPanel Grid.Column="1">
-            <ContentControl x:Name="Pages" Content="{Binding SelectedViewModel}"/>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="100"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <DockPanel Grid.Column="0">
+                <StackPanel DockPanel.Dock="Top">
+                    <Button DockPanel.Dock="Top" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
+                    <Button DockPanel.Dock="Top" Content="История" Command="{Binding OpenHistoryCommand}"/>
+                </StackPanel>
+                <Button DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Content="Выход"/>
+            </DockPanel>
+            <ContentControl Grid.Column="1" Content="{Binding SelectedViewModel}"/>
+        </Grid>
+        <StatusBar Grid.Row="2">
+            <StatusBarItem Content="Прогресс">
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Window>

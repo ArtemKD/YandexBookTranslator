@@ -11,8 +11,8 @@ namespace YandexBookTranslator.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public readonly InformationViewModel Information;
-        public readonly TranslateViewModel Translate;
+        public readonly TranslationHistoryViewModel HistoryVM;
+        public readonly TranslationControlViewModel TranslateVM;
 
         #region SelectViewModel
         private object _SelectedViewModel;
@@ -24,12 +24,12 @@ namespace YandexBookTranslator.ViewModels
         #endregion
 
         #region Commands
-        #region OpenInfoCommand
-        public ICommand OpenInfoCommand { get; }
-        private bool CanOpenInfoCommandExecute(object p) => true;
-        private void OnOpenInfoCommandExecuted(object p)
+        #region OpenHistoryCommand
+        public ICommand OpenHistoryCommand { get; }
+        private bool CanOpenHistoryCommandExecute(object p) => true;
+        private void OnOpenHistoryCommandExecuted(object p)
         {
-            SelectedViewModel = Information;
+            SelectedViewModel = HistoryVM;
         }
         #endregion
 
@@ -38,7 +38,7 @@ namespace YandexBookTranslator.ViewModels
         private bool CanOpenTransalteCommandExecute(object p) => true;
         private void OnOpenTransalteCommandExecuted(object p)
         {
-            SelectedViewModel = Translate;
+            SelectedViewModel = TranslateVM;
         }
         #endregion
         #endregion
@@ -46,11 +46,11 @@ namespace YandexBookTranslator.ViewModels
         public MainWindowViewModel()
         {
 
-            OpenInfoCommand = new LambdaCommand(OnOpenInfoCommandExecuted, CanOpenInfoCommandExecute);
+            OpenHistoryCommand = new LambdaCommand(OnOpenHistoryCommandExecuted, CanOpenHistoryCommandExecute);
             OpenTransalteCommand = new LambdaCommand(OnOpenTransalteCommandExecuted, CanOpenTransalteCommandExecute);
 
-            Information = new InformationViewModel();
-            Translate = new TranslateViewModel();
+            HistoryVM = new TranslationHistoryViewModel();
+            TranslateVM = new TranslationControlViewModel();
         }
     }
 }

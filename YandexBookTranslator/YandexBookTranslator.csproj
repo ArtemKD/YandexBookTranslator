@@ -55,11 +55,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Views\Controls\InformationControlView.xaml">
+    <Page Include="Views\Controls\TranslationControlView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Controls\TranslateControlView.xaml">
+    <Page Include="Views\Controls\TranslationHistoryView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -74,14 +74,14 @@
     <Compile Include="Infrastructure\Commands\Base\Command.cs" />
     <Compile Include="Infrastructure\Commands\LambdaCommand.cs" />
     <Compile Include="ViewModels\Base\ViewModel.cs" />
-    <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\TranslateViewModel.cs" />
-    <Compile Include="Views\Controls\InformationControlView.xaml.cs">
-      <DependentUpon>InformationControlView.xaml</DependentUpon>
+    <Compile Include="ViewModels\TranslationControlViewModel.cs" />
+    <Compile Include="ViewModels\TranslationHistoryViewModel.cs" />
+    <Compile Include="Views\Controls\TranslationControlView.xaml.cs">
+      <DependentUpon>TranslationControlView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Controls\TranslateControlView.xaml.cs">
-      <DependentUpon>TranslateControlView.xaml</DependentUpon>
+    <Compile Include="Views\Controls\TranslationHistoryView.xaml.cs">
+      <DependentUpon>TranslationHistoryView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace YandexBookTranslator.Views.Controls
 {
     /// <summary>
-    /// Логика взаимодействия для TranslateControlView.xaml
+    /// Логика взаимодействия для TranslationHistoryView.xaml
     /// </summary>
-    public partial class TranslateControlView : UserControl
+    public partial class TranslationHistoryView : UserControl
     {
-        public TranslateControlView()
+        public TranslationHistoryView()
         {
             InitializeComponent();
         }
