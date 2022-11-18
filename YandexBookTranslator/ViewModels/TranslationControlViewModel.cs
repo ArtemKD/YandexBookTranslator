@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using YandexBookTranslator.ViewModels.Base;
 
 namespace YandexBookTranslator.ViewModels
 {
     internal class TranslationControlViewModel : ViewModel
     {
+        #region Свойства ViewModel
         #region Список файлов - FilesList
         private List<string> _FilesList;
         public List<string> FilesList
@@ -42,6 +41,7 @@ namespace YandexBookTranslator.ViewModels
             set => Set(ref _SaveDir, value);
         }
         #endregion
+
         #region Список поддерживаемых языков - Langs
         private Dictionary<string, string> _Langs;
         public Dictionary<string, string> Langs
@@ -54,9 +54,29 @@ namespace YandexBookTranslator.ViewModels
         {
             get
             {
-                return _Langs.Values.ToList();
+                return _Langs.Keys.ToList();
             }
         }
+        #endregion
+
+        #region Выбранный исходный язык перевода - SelectedSourceLang
+        private string _SelectedSourceLang;
+        public string SelectedSourceLang
+        {
+            get => _SelectedSourceLang;
+            set => Set(ref _SelectedSourceLang, value);
+        }
+        #endregion
+
+        #region Выбранный конечный язык перевода - SelectedTargetLang
+        private string _SelectedTargetLang;
+        public string SelectedTargetLang
+        {
+            get => _SelectedTargetLang;
+            set => Set(ref _SelectedTargetLang, value);
+        }
+        #endregion
+
         #endregion
 
         public TranslationControlViewModel()
@@ -67,11 +87,14 @@ namespace YandexBookTranslator.ViewModels
 
             _Langs= new Dictionary<string, string>()
             {
-                {"ru", "Русский" },
-                {"en", "Английский" },
-                {"zh", "Китайский" },
-                {"fr", "Французский" }
+                {"Русский", "ru" },
+                {"Английский", "en" },
+                {"Китайский", "zh" },
+                {"Французский", "fr" }
             };
+
+            SelectedSourceLang = Langs.First().Key;
+            SelectedTargetLang = Langs.Skip(1).First().Key;
         }
     }
 }

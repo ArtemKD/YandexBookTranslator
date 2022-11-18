@@ -21,7 +21,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            
+
             <!--Файлы для перевода-->
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -38,7 +38,7 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="Директория сохранения"/>
-                <TextBox Grid.Column="1" Text="{Binding SaveDir }" IsEnabled="False"/>
+                <TextBox Grid.Column="1" Text="{Binding SaveDir}" IsEnabled="False"/>
             </Grid>
 
             <!--Выбор языка-->
@@ -49,12 +49,14 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Label Grid.Column="0" Content="Исходный язык"/>
-                <ComboBox Grid.Column="1" ItemsSource="{Binding NameOfLangs}" SelectedItem="Русский"/>
-                
+                <ComboBox Grid.Column="1" ItemsSource="{Binding NameOfLangs}"
+                          SelectedItem="{Binding SelectedSourceLang}"/>
+
                 <Label Grid.Column="2" Content="Конечный язык"/>
-                <ComboBox Grid.Column="3" ItemsSource="{Binding NameOfLangs}" SelectedItem="Английский"/>
+                <ComboBox Grid.Column="3" ItemsSource="{Binding NameOfLangs}"
+                          SelectedItem="{Binding SelectedTargetLang}"/>
             </Grid>
         </Grid>
     </Grid>
