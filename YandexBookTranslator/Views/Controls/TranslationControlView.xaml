@@ -4,14 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:YandexBookTranslator.Views.Controls"
+             xmlns:ViewModel="clr-namespace:YandexBookTranslator.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <ViewModel:TranslationControlViewModel/>
+    </UserControl.DataContext>
     <Grid Margin="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Настройки пеервода-->
@@ -28,8 +30,13 @@
                     <ColumnDefinition Width="200"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Файлы для перевода"/>
-                <TextBox Grid.Column="1" Text="{Binding FilesListString}" IsEnabled="False"/>
+                <!--<Button Grid.Column="0" Content="Файлы для перевода"/>-->
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="1" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="1"/>
+                    <Button Content="2" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="2"/>
+                    <Button Content="3" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="3"/>
+                </StackPanel>
+                <TextBox Grid.Column="1" Text="{Binding TranslationFileNameList, Mode=OneWay}" IsEnabled="False"/>
             </Grid>
             <!--Директория перевода-->
             <Grid Grid.Row="1">
@@ -40,24 +47,32 @@
                 <Button Grid.Column="0" Content="Директория сохранения"/>
                 <TextBox Grid.Column="1" Text="{Binding SaveDir}" IsEnabled="False"/>
             </Grid>
-
-            <!--Выбор языка-->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Label Grid.Column="0" Content="Исходный язык"/>
-                <ComboBox Grid.Column="1" ItemsSource="{Binding NameOfLangs}"
-                          SelectedItem="{Binding SelectedSourceLang}"/>
-
-                <Label Grid.Column="2" Content="Конечный язык"/>
-                <ComboBox Grid.Column="3" ItemsSource="{Binding NameOfLangs}"
-                          SelectedItem="{Binding SelectedTargetLang}"/>
-            </Grid>
         </Grid>
+
+        <ListBox Grid.Row="1" ItemsSource="{Binding TranslationFilesInfoList}" HorizontalContentAlignment="Stretch"
+                 Margin="0 20 0 0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding FileName}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding PathFile}"/>
+                        <Label Grid.Column="2" Content="Исходный язык"/>
+                        <ComboBox Grid.Column="3" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.NameOfLangs}"
+                                  SelectedItem="{Binding SelectedSourceLang}"/>
+                        <Label Grid.Column="4" Content="Конечный язык"/>
+                        <ComboBox Grid.Column="5" ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.NameOfLangs}"
+                                  SelectedItem="{Binding SelectedTargetLang}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </UserControl>

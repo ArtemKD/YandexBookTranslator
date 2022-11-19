@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
+using YandexBookTranslator.Infrastructure.Commands;
+using YandexBookTranslator.Models;
 using YandexBookTranslator.ViewModels.Base;
 
 namespace YandexBookTranslator.ViewModels
@@ -9,26 +12,34 @@ namespace YandexBookTranslator.ViewModels
     {
         #region Свойства ViewModel
         #region Список файлов - FilesList
-        private List<string> _FilesList;
-        public List<string> FilesList
+        private List<TranslationFilesInfo> _TranslationFilesInfoList;
+        public List<TranslationFilesInfo> TranslationFilesInfoList
         {
-            get => _FilesList;
-            set => Set(ref _FilesList, value);
+            get => _TranslationFilesInfoList;
+            set
+            {
+                Set(ref _TranslationFilesInfoList, value);
+                OnPropertyChanged("TranslationFileNameList");
+            }
         }
-        public String FilesListString
+        public string TranslationFileNameList
         {
             get
             {
-                string files = _FilesList.First();
-                foreach(var file in _FilesList.Skip(1))
+                string fileNames;
+                if (_TranslationFilesInfoList.Count != 0)
                 {
-                    files += "\r\n" + file;
+                    fileNames = _TranslationFilesInfoList.First().FileName;
+                    foreach (var file in _TranslationFilesInfoList.Skip(1))
+                    {
+                        fileNames += "\r\n" + file.FileName;
+                    }
                 }
-                return files;
-            }
-            set
-            {
-
+                else
+                {
+                    fileNames = "Файлы";
+                }
+                return fileNames;
             }
         }
         #endregion
@@ -79,13 +90,57 @@ namespace YandexBookTranslator.ViewModels
 
         #endregion
 
+        #region Команды ViewModel
+        #region Команда добавления файлов для перевода - ChooseTranslationFilesCommand
+
+        public ICommand ChooseTranslationFilesCommand { get; }
+        public bool CanChooseTranslationFilesCommandExecute(object p) => true;
+        public void OnChooseTranslationFilesCommandExecuted(object p)
+        {
+            var numTemplate = int.Parse(p.ToString());
+            switch(numTemplate)
+            {
+                case 1:
+                    TranslationFilesInfoList = new List<TranslationFilesInfo>()
+                    {
+                        new TranslationFilesInfo("C:\\1.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\2.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\3.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\4.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                    };
+                    break;
+                case 2:
+                    TranslationFilesInfoList = new List<TranslationFilesInfo>()
+                    {
+                        new TranslationFilesInfo("C:\\one.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\two.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\three.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\four.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                    };
+                    break;
+                default:
+                    TranslationFilesInfoList = new List<TranslationFilesInfo>()
+                    {
+                        new TranslationFilesInfo("C:\\apple.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\orange.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\peage.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                        new TranslationFilesInfo("C:\\plum.docx", Langs.First().Key, Langs.Skip(1).First().Key),
+                    };
+                    break;
+            }
+        }
+        #endregion
+        #endregion
+
         public TranslationControlViewModel()
         {
-            _FilesList = new List<string>();
-            _FilesList.Add("Файлы");
-            _SaveDir= "Директория";
+            ChooseTranslationFilesCommand = new LambdaCommand(OnChooseTranslationFilesCommandExecuted, CanChooseTranslationFilesCommandExecute);
 
-            _Langs= new Dictionary<string, string>()
+            TranslationFilesInfoList = new List<TranslationFilesInfo>();
+            //_TranslationFilesInfoList.Add(new TranslationFilesInfo("C:\\1.docx"));
+            SaveDir= "Директория";
+
+            Langs= new Dictionary<string, string>()
             {
                 {"Русский", "ru" },
                 {"Английский", "en" },
