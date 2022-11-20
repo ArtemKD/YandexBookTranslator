@@ -16,7 +16,9 @@
     </Window.DataContext>
     <Window.Resources>
         <DataTemplate DataType="{x:Type ViewModels:TranslationControlViewModel}">
-            <Controls:TranslationControlView DataContext="{Binding}"/>
+            <GroupBox Header="Страница">
+                <Controls:TranslationControlView DataContext="{Binding}"/>
+            </GroupBox>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:TranslationHistoryViewModel}">
             <Controls:TranslationHistoryView DataContext="{Binding}"/>
@@ -27,28 +29,18 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
-            <Button Grid.Column="2" Content="История" Command="{Binding OpenHistoryCommand}"/>
-        </Grid>
+        <DockPanel>
+            <Button DockPanel.Dock="Right" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
+            <Button DockPanel.Dock="Right" Content="История" Command="{Binding OpenHistoryCommand}"/>
+        </DockPanel>
 
         <Grid Grid.Row="1">
             <ContentControl Grid.Row="0" Content="{Binding SelectedViewModel}"/>
         </Grid>
-
-        <Button Grid.Row="2" Content="Начать перевод" Command="{Binding StartTranslateCommand}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
-
+        
         <!--Панель статуса-->
-        <StatusBar Grid.Row="3">
+        <StatusBar Grid.Row="2">
             <StatusBarItem>
                 <Grid>
                     <Grid.ColumnDefinitions>
