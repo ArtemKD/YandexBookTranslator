@@ -7,9 +7,6 @@
              xmlns:ViewModel="clr-namespace:YandexBookTranslator.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <ViewModel:TranslationControlViewModel/>
-    </UserControl.DataContext>
     <Grid Margin="10 0 10 0">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
