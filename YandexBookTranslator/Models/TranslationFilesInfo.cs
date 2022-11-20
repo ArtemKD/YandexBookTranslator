@@ -24,7 +24,7 @@ namespace YandexBookTranslator.Models
 
         public override string ToString()
         {
-            return PathFile + " | " + FileName + " | " + SelectedSourceLang + " | " + SelectedTargetLang;
+            return PathFile + "\t| " + FileName + "\t| " + SelectedSourceLang + "\t| " + SelectedTargetLang;
         }
     }
 }

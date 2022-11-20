@@ -62,7 +62,7 @@ namespace YandexBookTranslator.ViewModels
         }
         private void OnStartTranslationCommandExecuted(object p)
         {
-            StreamWriter streamWriter = new StreamWriter($"{DateTime.Now:dd-MM-yyyy_HH-mm-ss}");
+            StreamWriter streamWriter = new StreamWriter($"Logs\\{DateTime.Now:dd-MM-yyyy_HH-mm-ss}.txt");
             foreach (var item in TranslateVM.TranslationFilesInfoList)
             {
                 streamWriter.WriteLine(item);
