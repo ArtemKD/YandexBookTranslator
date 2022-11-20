@@ -21,5 +21,10 @@ namespace YandexBookTranslator.Models
             SelectedSourceLang = selectedSourceLang;
             SelectedTargetLang = selectedTargetLang;
         }
+
+        public override string ToString()
+        {
+            return PathFile + " " + FileName + " " + SelectedSourceLang + " " + SelectedTargetLang;
+        }
     }
 }
