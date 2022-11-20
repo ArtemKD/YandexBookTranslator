@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using YandexBookTranslator.Infrastructure.Commands;
 using YandexBookTranslator.Models;
@@ -98,8 +99,37 @@ namespace YandexBookTranslator.ViewModels
         public bool CanChooseTranslationFilesCommandExecute(object p) => true;
         public void OnChooseTranslationFilesCommandExecuted(object p)
         {
+            OpenFileDialog dialog = new OpenFileDialog() { Multiselect = true};
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                var fileList = new List<TranslationFilesInfo>();
+                foreach (var file in dialog.FileNames)
+                {
+                    fileList.Add(new TranslationFilesInfo(file, Langs.First().Key, Langs.Skip(1).First().Key));
+                }
+                TranslationFilesInfoList = fileList;
+            }
+        }
+        #endregion
+
+        #region Команда выбора пути сохранения - ChooseSavePathCommand
+        public ICommand ChooseSavePathCommand { get; }
+        public bool CanChooseSavePathCommandExecute(object p) => true;
+        public void OnChooseSavePathCommandExecuted(object p)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+                SaveDir = dialog.SelectedPath;
+        }
+        #endregion
+
+        #region Команда выбора тестовых данных - TestChooseTranslationFilesCommand
+        public ICommand TestChooseTranslationFilesCommand { get; }
+        public bool CanTestChooseTranslationFilesCommandExecute(object p) => true;
+        public void OnTestChooseTranslationFilesCommandExecuted(object p)
+        {
             var numTemplate = int.Parse(p.ToString());
-            switch(numTemplate)
+            switch (numTemplate)
             {
                 case 1:
                     TranslationFilesInfoList = new List<TranslationFilesInfo>()
@@ -130,21 +160,23 @@ namespace YandexBookTranslator.ViewModels
                     break;
             }
         }
+        #endregion
 
+        #region Тестовая команда - TestCommand
         public ICommand TestCommand { get; }
         public bool CanTestCommandExecute(object p) => true;
         public void OnTestCommandExecuted(object p)
         {
             Console.WriteLine(String.Join("\n", TranslationFilesInfoList.AsEnumerable()));
         }
-
-
         #endregion
+
         #endregion
 
         public TranslationControlViewModel()
         {
             ChooseTranslationFilesCommand = new LambdaCommand(OnChooseTranslationFilesCommandExecuted, CanChooseTranslationFilesCommandExecute);
+            ChooseSavePathCommand = new LambdaCommand(OnChooseSavePathCommandExecuted, CanChooseSavePathCommandExecute);
             TestCommand = new LambdaCommand(OnTestCommandExecuted, CanTestCommandExecute);
 
             TranslationFilesInfoList = new List<TranslationFilesInfo>();

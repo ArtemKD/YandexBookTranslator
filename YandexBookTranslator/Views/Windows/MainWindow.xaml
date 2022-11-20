@@ -16,10 +16,12 @@
     </Window.DataContext>
     <Window.Resources>
         <DataTemplate DataType="{x:Type ViewModels:TranslationControlViewModel}">
-            <Controls:TranslationControlView/>
+            <GroupBox Header="Страница">
+                <Controls:TranslationControlView DataContext="{Binding}"/>
+            </GroupBox>
         </DataTemplate>
         <DataTemplate DataType="{x:Type ViewModels:TranslationHistoryViewModel}">
-            <Controls:TranslationHistoryView/>
+            <Controls:TranslationHistoryView DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
