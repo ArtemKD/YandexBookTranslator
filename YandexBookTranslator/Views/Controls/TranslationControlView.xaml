@@ -35,6 +35,7 @@
                     <Button Content="1" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="1"/>
                     <Button Content="2" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="2"/>
                     <Button Content="3" Command="{Binding ChooseTranslationFilesCommand}" CommandParameter="3"/>
+                    <Button Content="test" Command="{Binding TestCommand}"/>
                 </StackPanel>
                 <TextBox Grid.Column="1" Text="{Binding TranslationFileNameList, Mode=OneWay}" IsEnabled="False"/>
             </Grid>

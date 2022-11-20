@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using YandexBookTranslator.Infrastructure.Commands;
@@ -129,12 +130,22 @@ namespace YandexBookTranslator.ViewModels
                     break;
             }
         }
+
+        public ICommand TestCommand { get; }
+        public bool CanTestCommandExecute(object p) => true;
+        public void OnTestCommandExecuted(object p)
+        {
+            Console.WriteLine(String.Join("\n", TranslationFilesInfoList.AsEnumerable()));
+        }
+
+
         #endregion
         #endregion
 
         public TranslationControlViewModel()
         {
             ChooseTranslationFilesCommand = new LambdaCommand(OnChooseTranslationFilesCommandExecuted, CanChooseTranslationFilesCommandExecute);
+            TestCommand = new LambdaCommand(OnTestCommandExecuted, CanTestCommandExecute);
 
             TranslationFilesInfoList = new List<TranslationFilesInfo>();
             //_TranslationFilesInfoList.Add(new TranslationFilesInfo("C:\\1.docx"));
