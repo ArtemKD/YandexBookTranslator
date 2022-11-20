@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.IO;
+using System.Windows.Input;
 using YandexBookTranslator.Infrastructure.Commands;
 using YandexBookTranslator.ViewModels.Base;
 
@@ -29,8 +30,8 @@ namespace YandexBookTranslator.ViewModels
         }
         #endregion
 
-        #region Commands
-        #region OpenHistoryCommand
+        #region Команды
+        #region Команда переключения на вкладку истории перевда - OpenHistoryCommand
         public ICommand OpenHistoryCommand { get; }
         private bool CanOpenHistoryCommandExecute(object p)
         {
@@ -42,7 +43,7 @@ namespace YandexBookTranslator.ViewModels
         }
         #endregion
 
-        #region OpenTransalteCommand
+        #region Команда переключение на вкладку перевода OpenTransalteCommand
         public ICommand OpenTransalteCommand { get; }
         private bool CanOpenTransalteCommandExecute(object p) => !SelectedViewModel.Equals(TranslateVM);
         private void OnOpenTransalteCommandExecuted(object p)
@@ -50,6 +51,25 @@ namespace YandexBookTranslator.ViewModels
             SelectedViewModel = TranslateVM;
         }
         #endregion
+
+        #region Команда начала перевода - StartTranslateCommand
+        public ICommand StartTranslateCommand { get; }
+        private bool CanStartTranslateCommandExecute(object p)
+        {
+            if (TranslateVM.SaveDir != "Директория" && TranslateVM.TranslationFilesInfoList.Count > 0) return true;
+            return false;
+        }
+        private void OnStartTranslateCommandExecuted(object p)
+        {
+            StreamWriter streamWriter = new StreamWriter("log.log", true);
+            foreach (var item in TranslateVM.TranslationFilesInfoList)
+            {
+                streamWriter.WriteLine(item);
+            }
+            streamWriter.Close();
+        }
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -57,6 +77,7 @@ namespace YandexBookTranslator.ViewModels
 
             OpenHistoryCommand = new LambdaCommand(OnOpenHistoryCommandExecuted, CanOpenHistoryCommandExecute);
             OpenTransalteCommand = new LambdaCommand(OnOpenTransalteCommandExecuted, CanOpenTransalteCommandExecute);
+            StartTranslateCommand = new LambdaCommand(OnStartTranslateCommandExecuted, CanStartTranslateCommandExecute);
 
             HistoryVM = new TranslationHistoryViewModel();
             TranslateVM = new TranslationControlViewModel();
