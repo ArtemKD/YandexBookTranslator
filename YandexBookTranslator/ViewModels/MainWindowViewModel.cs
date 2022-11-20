@@ -29,8 +29,8 @@ namespace YandexBookTranslator.ViewModels
         }
         #endregion
 
-        #region Commands
-        #region OpenHistoryCommand
+        #region Комманды
+        #region Команда выбора вкладки истории перевода - OpenHistoryCommand
         public ICommand OpenHistoryCommand { get; }
         private bool CanOpenHistoryCommandExecute(object p)
         {
@@ -42,7 +42,7 @@ namespace YandexBookTranslator.ViewModels
         }
         #endregion
 
-        #region OpenTransalteCommand
+        #region Команда открытия вкладки перевода - OpenTransalteCommand
         public ICommand OpenTransalteCommand { get; }
         private bool CanOpenTransalteCommandExecute(object p) => !SelectedViewModel.Equals(TranslateVM);
         private void OnOpenTransalteCommandExecuted(object p)
