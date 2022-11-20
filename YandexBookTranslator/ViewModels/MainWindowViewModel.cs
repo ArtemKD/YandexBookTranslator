@@ -1,4 +1,6 @@
-﻿using System.Windows.Input;
+﻿using System;
+using System.IO;
+using System.Windows.Input;
 using YandexBookTranslator.Infrastructure.Commands;
 using YandexBookTranslator.ViewModels.Base;
 
@@ -50,6 +52,25 @@ namespace YandexBookTranslator.ViewModels
             SelectedViewModel = TranslateVM;
         }
         #endregion
+
+        #region Команда начала перевода - StartTranslationCommand
+        public ICommand StartTranslationCommand { get; }
+        private bool CanStartTranslationCommandExecute(object p)
+        {
+            if (TranslateVM.SaveDir != "Директория" && TranslateVM.TranslationFilesInfoList.Count > 0) return true;
+            return false;
+        }
+        private void OnStartTranslationCommandExecuted(object p)
+        {
+            StreamWriter streamWriter = new StreamWriter($"{DateTime.Now:dd-MM-yyyy_HH-mm-ss}");
+            foreach (var item in TranslateVM.TranslationFilesInfoList)
+            {
+                streamWriter.WriteLine(item);
+            }
+            streamWriter.Close();
+        }
+        #endregion
+
         #endregion
 
         public MainWindowViewModel()
@@ -57,6 +78,7 @@ namespace YandexBookTranslator.ViewModels
 
             OpenHistoryCommand = new LambdaCommand(OnOpenHistoryCommandExecuted, CanOpenHistoryCommandExecute);
             OpenTransalteCommand = new LambdaCommand(OnOpenTransalteCommandExecuted, CanOpenTransalteCommandExecute);
+            StartTranslationCommand = new LambdaCommand(OnStartTranslationCommandExecuted, CanStartTranslationCommandExecute);
 
             HistoryVM = new TranslationHistoryViewModel();
             TranslateVM = new TranslationControlViewModel();

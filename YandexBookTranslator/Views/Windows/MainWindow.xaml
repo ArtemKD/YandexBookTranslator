@@ -29,6 +29,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel>
             <Button DockPanel.Dock="Right" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
@@ -38,9 +39,12 @@
         <Grid Grid.Row="1">
             <ContentControl Grid.Row="0" Content="{Binding SelectedViewModel}"/>
         </Grid>
-        
+
+        <Button Grid.Row="2" Content="Начать перевод" Command="{Binding StartTranslationCommand}"
+                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
         <!--Панель статуса-->
-        <StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="3">
             <StatusBarItem>
                 <Grid>
                     <Grid.ColumnDefinitions>
