@@ -10,12 +10,14 @@ namespace YandexBookTranslator.ViewModels
         public TranslationHistoryViewModel HistoryVM
         {
             get => _HistoryVM;
+            set => Set(ref _HistoryVM, value);
         }
 
         private TranslationControlViewModel _TranslateVM;
         public TranslationControlViewModel TranslateVM
         {
             get => _TranslateVM;
+            set => Set(ref _TranslateVM, value);
         }
 
         #region SelectViewModel
@@ -56,8 +58,8 @@ namespace YandexBookTranslator.ViewModels
             OpenHistoryCommand = new LambdaCommand(OnOpenHistoryCommandExecuted, CanOpenHistoryCommandExecute);
             OpenTransalteCommand = new LambdaCommand(OnOpenTransalteCommandExecuted, CanOpenTransalteCommandExecute);
 
-            _HistoryVM = new TranslationHistoryViewModel();
-            _TranslateVM = new TranslationControlViewModel();
+            HistoryVM = new TranslationHistoryViewModel();
+            TranslateVM = new TranslationControlViewModel();
 
             SelectedViewModel = TranslateVM;
         }
