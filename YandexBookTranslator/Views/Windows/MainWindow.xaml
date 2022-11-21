@@ -31,10 +31,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <DockPanel>
-            <Button DockPanel.Dock="Right" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
-            <Button DockPanel.Dock="Right" Content="История" Command="{Binding OpenHistoryCommand}"/>
-        </DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Content="Переводчик" Command="{Binding OpenTransalteCommand}"/>
+            <Button Grid.Column="2" Content="История" Command="{Binding OpenHistoryCommand}"/>
+        </Grid>
 
         <Grid Grid.Row="1">
             <ContentControl Grid.Row="0" Content="{Binding SelectedViewModel}"/>
