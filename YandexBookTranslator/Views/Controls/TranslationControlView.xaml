@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:YandexBookTranslator.Views.Controls"
              xmlns:ViewModel="clr-namespace:YandexBookTranslator.ViewModels"
              mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance ViewModel:TranslationControlViewModel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="10 0 10 0">
         <Grid.RowDefinitions>
